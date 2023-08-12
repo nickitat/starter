@@ -26,7 +26,6 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     rtp = {
@@ -43,4 +42,52 @@ require("lazy").setup({
       },
     },
   },
+})
+
+-- Material theme for bg & status line
+require("material").setup({
+  lualine_style = "stealth",
+})
+vim.cmd("colorscheme material-palenight")
+
+-- Transparent statusline
+local lualine_material_theme = require("lualine.themes.material-stealth")
+lualine_material_theme.normal.c.bg = "None"
+require("lualine").setup({ options = { theme = lualine_material_theme } })
+
+--- To suppress some random notification
+require("notify").setup({
+  background_colour = "#000000",
+})
+
+require("transparent").setup({
+  groups = {
+    "Normal",
+    "NormalNC",
+    "Comment",
+    "Constant",
+    "Special",
+    "Identifier",
+    "Statement",
+    "PreProc",
+    "Type",
+    "Underlined",
+    "Todo",
+    "String",
+    "Function",
+    "Conditional",
+    "Repeat",
+    "Operator",
+    "Structure",
+    "LineNr",
+    "NonText",
+    "SignColumn",
+    "CursorLineNr",
+    "EndOfBuffer",
+  },
+  extra_groups = {
+    "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
+    "NvimTreeNormal", -- NvimTree
+  },
+  exclude_groups = {},
 })
