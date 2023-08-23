@@ -55,38 +55,40 @@ local lualine_material_theme = require("lualine.themes.material-stealth")
 lualine_material_theme.normal.c.bg = "None"
 require("lualine").setup({ options = { theme = lualine_material_theme } })
 
---- To suppress some random notification
+-- To suppress some random notification
 require("notify").setup({
   background_colour = "#000000",
 })
 
+-- Transparent everything
 require("transparent").setup({
   groups = {
-    "Normal",
-    "NormalNC",
     "Comment",
-    "Constant",
-    "Special",
-    "Identifier",
-    "Statement",
-    "PreProc",
-    "Type",
-    "Underlined",
-    "Todo",
-    "String",
-    "Function",
     "Conditional",
-    "Repeat",
-    "Operator",
-    "Structure",
-    "LineNr",
-    "NonText",
-    "SignColumn",
+    "Constant",
     "CursorLineNr",
     "EndOfBuffer",
+    "Function",
+    "Identifier",
+    "LineNr",
+    "NonText",
+    "Normal",
+    "NormalNC",
+    "Operator",
+    "PreProc",
+    "Repeat",
+    "SignColumn",
+    "Special",
+    "Statement",
+    "String",
+    "Structure",
+    "Todo",
+    "Type",
+    "Underlined",
   },
   extra_groups = {
     "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
+    "FloatBorder",
     "NvimTreeNormal", -- NvimTree
   },
   exclude_groups = {},

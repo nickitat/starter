@@ -1,12 +1,110 @@
--- since this is just an example spec, don't actually load anything here and return an empty spec
--- stylua: ignore
-if true then return {
-  -- Color scheme
-  { 'marko-cerovac/material.nvim' },
+if true then
+  return {
 
-  -- Transparent background
-  { 'xiyaowong/transparent.nvim' },
-} end
+    -- Color scheme
+    { "marko-cerovac/material.nvim" },
+
+    -- Transparent background
+    { "xiyaowong/transparent.nvim" },
+
+    -- Smart window showing all the errors in code
+    { "folke/trouble.nvim" },
+
+    -- Tag bar
+    {
+      "simrat39/symbols-outline.nvim",
+      cmd = "SymbolsOutline",
+      keys = { { "tg", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
+      config = true,
+    },
+
+    -- Language servers and code tools
+    {
+      "williamboman/mason.nvim",
+      opts = {
+        ensure_installed = {
+          "stylua",
+          "shellcheck",
+          "shfmt",
+          "flake8",
+          "clang-format",
+          "cmakelang",
+          "gitlint",
+          "htmlbeautifier",
+          "jq-lsp",
+          "sql-formatter",
+          -- "yamllint",
+          -- "yamlfmt",
+        },
+      },
+    },
+
+    -- LSP config
+    {
+      "neovim/nvim-lspconfig",
+      -- dependencies = {
+      --   "jose-elias-alvarez/typescript.nvim",
+      --   init = function()
+      --     require("lazyvim.util").on_attach(function(_, buffer)
+      --       -- stylua: ignore
+      --       vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+      --       vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+      --     end)
+      --   end,
+      -- },
+      ---@class PluginLspOpts
+      opts = {
+        --- @type lspconfig.options
+        servers = {
+          -- beautysh = {},
+          -- black = {},
+          -- cbfmt = {},
+          -- gh = {},
+          -- jq = {},
+          -- mdformat = {},
+          -- misspell = {},
+          -- neocmake = {},
+          -- shellcheck = {},
+          -- shellharden = {},
+          -- shfmt = {},
+          awk_ls = { on_attach = require("format_diff").on_attach },
+          bashls = { on_attach = require("format_diff").on_attach },
+          clangd = { on_attach = require("format_diff").on_attach },
+          cmake = { on_attach = require("format_diff").on_attach },
+          docker_compose_language_service = { on_attach = require("format_diff").on_attach },
+          dockerls = { on_attach = require("format_diff").on_attach },
+          html = { on_attach = require("format_diff").on_attach },
+          jsonls = { on_attach = require("format_diff").on_attach },
+          lua_ls = { on_attach = require("format_diff").on_attach },
+          marksman = { on_attach = require("format_diff").on_attach },
+          pylsp = { on_attach = require("format_diff").on_attach },
+          sqlls = { on_attach = require("format_diff").on_attach },
+          vimls = { on_attach = require("format_diff").on_attach },
+          yamlls = { on_attach = require("format_diff").on_attach },
+        },
+        autoformat = false,
+        -- you can do any additional lsp server setup here
+        -- return true if you don't want this server to be setup with lspconfig
+        -- @type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+        -- setup = {
+        --   -- example to setup with typescript.nvim
+        --   tsserver = function(_, opts)
+        --     require("typescript").setup({ server = opts })
+        --     return true
+        --   end,
+        --   -- Specify * to use this function as a fallback for any server
+        --   -- ["*"] = function(server, opts) end,
+        -- },
+      },
+    },
+
+    -- Format diff
+    { "nvim-lua/plenary.nvim" },
+    { "joechrisellis/lsp-format-modifications.nvim" },
+
+    { "jose-elias-alvarez/null-ls.nvim" },
+  }
+end
 
 -- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
 --
@@ -15,35 +113,6 @@ if true then return {
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
-
-  -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "gruvbox",
-    },
-  },
-
-  -- change trouble config
-  {
-    "folke/trouble.nvim",
-    -- opts will be merged with the parent spec
-    opts = { use_diagnostic_signs = true },
-  },
-
-  -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
-
-  -- add symbols-outline
-  {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-    keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    config = true,
-  },
-
   -- override nvim-cmp and add cmp-emoji
   {
     "hrsh7th/nvim-cmp",
@@ -89,58 +158,6 @@ return {
       end,
     },
   },
-
-  -- add pyright to lspconfig
-  {
-    "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
-    opts = {
-      ---@type lspconfig.options
-      servers = {
-        -- pyright will be automatically installed with mason and loaded with lspconfig
-        pyright = {},
-      },
-    },
-  },
-
-  -- add tsserver and setup with typescript.nvim instead of lspconfig
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
-      init = function()
-        require("lazyvim.util").on_attach(function(_, buffer)
-          -- stylua: ignore
-          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
-          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
-        end)
-      end,
-    },
-    ---@class PluginLspOpts
-    opts = {
-      ---@type lspconfig.options
-      servers = {
-        -- tsserver will be automatically installed with mason and loaded with lspconfig
-        tsserver = {},
-      },
-      -- you can do any additional lsp server setup here
-      -- return true if you don't want this server to be setup with lspconfig
-      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-      setup = {
-        -- example to setup with typescript.nvim
-        tsserver = function(_, opts)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
-        -- Specify * to use this function as a fallback for any server
-        -- ["*"] = function(server, opts) end,
-      },
-    },
-  },
-
-  -- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
-  -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
-  { import = "lazyvim.plugins.extras.lang.typescript" },
 
   -- add more treesitter parsers
   {
@@ -204,19 +221,6 @@ return {
 
   -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
   { import = "lazyvim.plugins.extras.lang.json" },
-
-  -- add any tools you want to have installed below
-  {
-    "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "flake8",
-      },
-    },
-  },
 
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
