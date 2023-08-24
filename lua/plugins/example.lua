@@ -1,119 +1,107 @@
-if true then
-  return {
-
-    -- Color scheme
-    { "marko-cerovac/material.nvim" },
-
-    -- Transparent background
-    { "xiyaowong/transparent.nvim" },
-
-    -- Smart window showing all the errors in code
-    { "folke/trouble.nvim" },
-
-    -- Tag bar
-    {
-      "simrat39/symbols-outline.nvim",
-      cmd = "SymbolsOutline",
-      keys = { { "tg", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-      config = true,
-    },
-
-    -- Language servers and code tools
-    {
-      "williamboman/mason.nvim",
-      opts = {
-        ensure_installed = {
-          "stylua",
-          "shellcheck",
-          "shfmt",
-          "flake8",
-          "clang-format",
-          "cmakelang",
-          "gitlint",
-          "htmlbeautifier",
-          "jq-lsp",
-          "sql-formatter",
-          -- "yamllint",
-          -- "yamlfmt",
-        },
-      },
-    },
-
-    -- LSP config
-    {
-      "neovim/nvim-lspconfig",
-      -- dependencies = {
-      --   "jose-elias-alvarez/typescript.nvim",
-      --   init = function()
-      --     require("lazyvim.util").on_attach(function(_, buffer)
-      --       -- stylua: ignore
-      --       vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
-      --       vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
-      --     end)
-      --   end,
-      -- },
-      ---@class PluginLspOpts
-      opts = {
-        --- @type lspconfig.options
-        servers = {
-          -- beautysh = {},
-          -- black = {},
-          -- cbfmt = {},
-          -- gh = {},
-          -- jq = {},
-          -- mdformat = {},
-          -- misspell = {},
-          -- neocmake = {},
-          -- shellcheck = {},
-          -- shellharden = {},
-          -- shfmt = {},
-          awk_ls = { on_attach = require("format_diff").on_attach },
-          bashls = { on_attach = require("format_diff").on_attach },
-          clangd = { on_attach = require("format_diff").on_attach },
-          cmake = { on_attach = require("format_diff").on_attach },
-          docker_compose_language_service = { on_attach = require("format_diff").on_attach },
-          dockerls = { on_attach = require("format_diff").on_attach },
-          html = { on_attach = require("format_diff").on_attach },
-          jsonls = { on_attach = require("format_diff").on_attach },
-          lua_ls = { on_attach = require("format_diff").on_attach },
-          marksman = { on_attach = require("format_diff").on_attach },
-          pylsp = { on_attach = require("format_diff").on_attach },
-          sqlls = { on_attach = require("format_diff").on_attach },
-          vimls = { on_attach = require("format_diff").on_attach },
-          yamlls = { on_attach = require("format_diff").on_attach },
-        },
-        autoformat = false,
-        -- you can do any additional lsp server setup here
-        -- return true if you don't want this server to be setup with lspconfig
-        -- @type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-        -- setup = {
-        --   -- example to setup with typescript.nvim
-        --   tsserver = function(_, opts)
-        --     require("typescript").setup({ server = opts })
-        --     return true
-        --   end,
-        --   -- Specify * to use this function as a fallback for any server
-        --   -- ["*"] = function(server, opts) end,
-        -- },
-      },
-    },
-
-    -- Format diff
-    { "nvim-lua/plenary.nvim" },
-    { "joechrisellis/lsp-format-modifications.nvim" },
-
-    { "jose-elias-alvarez/null-ls.nvim" },
-  }
-end
-
--- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
---
--- In your plugin files, you can:
--- * add extra plugins
--- * disable/enabled LazyVim plugins
--- * override the configuration of LazyVim plugins
 return {
-  -- override nvim-cmp and add cmp-emoji
+
+  -- Color scheme
+  { "marko-cerovac/material.nvim" },
+
+  -- Transparent background
+  { "xiyaowong/transparent.nvim" },
+
+  -- Smart window showing all the errors in code
+  { "folke/trouble.nvim" },
+
+  -- Tag bar
+  {
+    "simrat39/symbols-outline.nvim",
+    cmd = "SymbolsOutline",
+    keys = { { "tg", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
+    config = true,
+  },
+
+  -- Language servers and code tools
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "flake8",
+        "clang-format",
+        "cmakelang",
+        "gitlint",
+        "htmlbeautifier",
+        "jq-lsp",
+        "sql-formatter",
+        -- "yamllint",
+        -- "yamlfmt",
+      },
+    },
+  },
+
+  -- LSP config
+  {
+    "neovim/nvim-lspconfig",
+    -- dependencies = {
+    --   "jose-elias-alvarez/typescript.nvim",
+    --   init = function()
+    --     require("lazyvim.util").on_attach(function(_, buffer)
+    --       -- stylua: ignore
+    --       vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+    --       vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+    --     end)
+    --   end,
+    -- },
+    ---@class PluginLspOpts
+    opts = {
+      --- @type lspconfig.options
+      servers = {
+        -- beautysh = {},
+        -- black = {},
+        -- cbfmt = {},
+        -- gh = {},
+        -- jq = {},
+        -- mdformat = {},
+        -- misspell = {},
+        -- neocmake = {},
+        -- shellcheck = {},
+        -- shellharden = {},
+        -- shfmt = {},
+        awk_ls = { on_attach = require("format_diff").on_attach },
+        bashls = { on_attach = require("format_diff").on_attach },
+        clangd = { on_attach = require("format_diff").on_attach },
+        cmake = { on_attach = require("format_diff").on_attach },
+        docker_compose_language_service = { on_attach = require("format_diff").on_attach },
+        dockerls = { on_attach = require("format_diff").on_attach },
+        html = { on_attach = require("format_diff").on_attach },
+        jsonls = { on_attach = require("format_diff").on_attach },
+        lua_ls = { on_attach = require("format_diff").on_attach },
+        marksman = { on_attach = require("format_diff").on_attach },
+        pylsp = { on_attach = require("format_diff").on_attach },
+        sqlls = { on_attach = require("format_diff").on_attach },
+        vimls = { on_attach = require("format_diff").on_attach },
+        yamlls = { on_attach = require("format_diff").on_attach },
+      },
+      autoformat = false,
+      -- you can do any additional lsp server setup here
+      -- return true if you don't want this server to be setup with lspconfig
+      -- @type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+      -- setup = {
+      --   -- example to setup with typescript.nvim
+      --   tsserver = function(_, opts)
+      --     require("typescript").setup({ server = opts })
+      --     return true
+      --   end,
+      --   -- Specify * to use this function as a fallback for any server
+      --   -- ["*"] = function(server, opts) end,
+      -- },
+    },
+  },
+
+  -- Format diff
+  { "nvim-lua/plenary.nvim" },
+  { "joechrisellis/lsp-format-modifications.nvim" },
+
+  -- Override nvim-cmp and add cmp-emoji
   {
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji" },
@@ -124,7 +112,7 @@ return {
     end,
   },
 
-  -- change some telescope options and a keymap to browse plugin files
+  -- Telescope
   {
     "nvim-telescope/telescope.nvim",
     keys = {
@@ -140,16 +128,15 @@ return {
     opts = {
       defaults = {
         layout_strategy = "horizontal",
-        layout_config = { prompt_position = "top" },
-        sorting_strategy = "ascending",
+        layout_config = { prompt_position = "bottom", width = 0.95 },
+        sorting_strategy = "descending",
         winblend = 0,
       },
     },
   },
-
-  -- add telescope-fzf-native
+  -- Better fuzzy search score for Telescope
   {
-    "telescope.nvim",
+    "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
@@ -159,53 +146,66 @@ return {
     },
   },
 
-  -- add more treesitter parsers
+  -- Surrounding
+  {
+    "kylechui/nvim-surround",
+    -- version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end,
+  },
+
+  -- TreeSitter
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, {
         "bash",
+        "c",
+        "cpp",
         "html",
-        "javascript",
         "json",
         "lua",
         "markdown",
         "markdown_inline",
         "python",
-        "query",
         "regex",
-        "tsx",
-        "typescript",
         "vim",
         "yaml",
-      },
-    },
-  },
-
-  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
-  -- would overwrite `ensure_installed` with the new value.
-  -- If you'd rather extend the default config, use the code below instead:
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
       })
     end,
   },
 
-  -- the opts function can also be used to change the default opts:
+  -- Better hover for LSP or GitHub
   {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      table.insert(opts.sections.lualine_x, "😄")
-    end,
+    "lewis6991/hover.nvim",
+    config = function()
+      require("hover").setup {
+        init = function()
+          require("hover.providers.lsp")
+          require('hover.providers.gh')
+          require('hover.providers.gh_user')
+          require('hover.providers.man')
+        end,
+        preview_opts = {
+          border = nil
+        },
+        -- Whether the contents of a currently open hover window should be moved
+        -- to a :h preview-window when pressing the hover keymap.
+        preview_window = false,
+        title = true
+      }
+
+      vim.keymap.set("n", "gh", require("hover").hover, { desc = "hover.nvim" })
+      -- To choose between providers
+      -- vim.keymap.set("n", "gh", require("hover").hover_select, { desc = "hover.nvim (select)" })
+    end
   },
 
-  -- or you can return new options to override all the defaults
+  -- Status line
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
@@ -215,12 +215,6 @@ return {
       }
     end,
   },
-
-  -- use mini.starter instead of alpha
-  { import = "lazyvim.plugins.extras.ui.mini-starter" },
-
-  -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
-  { import = "lazyvim.plugins.extras.lang.json" },
 
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
@@ -273,4 +267,6 @@ return {
       })
     end,
   },
+  -- Smooth scroll
+  { "karb94/neoscroll.nvim" },
 }

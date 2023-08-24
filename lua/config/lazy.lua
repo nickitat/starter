@@ -93,3 +93,4 @@ require("transparent").setup({
   },
   exclude_groups = {},
 })
+require("neoscroll").setup()
