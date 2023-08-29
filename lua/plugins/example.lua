@@ -198,10 +198,6 @@ return {
         preview_window = false,
         title = true
       }
-
-      vim.keymap.set("n", "gh", require("hover").hover, { desc = "hover.nvim" })
-      -- To choose between providers
-      -- vim.keymap.set("n", "gh", require("hover").hover_select, { desc = "hover.nvim (select)" })
     end
   },
 
@@ -269,4 +265,30 @@ return {
   },
   -- Smooth scroll
   { "karb94/neoscroll.nvim" },
+  -- Github integration for TreeSitter
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    opts = function()
+      require "octo".setup()
+    end
+  },
+
+  -- Better yank/put
+  { "gbprod/yanky.nvim" },
+
+  -- FZF
+  {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      -- calling `setup` is optional for customization
+      -- require("fzf-lua").setup({})
+    end
+  },
 }

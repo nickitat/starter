@@ -19,3 +19,12 @@ end
 --- More convinient jump back/fwd
 map({ "n", "v" }, "jb", "<c-o>", {})
 map({ "n", "v" }, "jf", "<c-i>", {})
+--- Keymaps for yanky
+map({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+map({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+map({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+map({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
+map("n", "<c-n>", "<Plug>(YankyCycleForward)")
+map("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+
+vim.keymap.set("n", "gh", require("hover").hover, { desc = "hover.nvim", remap = true })
