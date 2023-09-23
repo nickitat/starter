@@ -96,3 +96,57 @@ require("transparent").setup({
 require("neoscroll").setup({})
 
 require("yanky").setup({})
+-- Lua snippet for LOG_DEBUG
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+local f = ls.function_node
+
+local function fn(args, _, _)
+  local function split(source, delimiters)
+    local elements = {}
+    local pattern = '([^' .. delimiters .. ']+)'
+    _ = string.gsub(source, pattern, function(value) elements[#elements + 1] = value; end);
+    for key, elem in pairs(elements) do
+      if string.sub(elem, -1, -1) == "," then
+        elements[key] = string.sub(elem, 1, -2)
+      end
+    end
+    return elements
+  end
+
+  local arg = split(args[1][1], ' ')
+  return '"' .. table.concat(arg, '={}, ') .. '={}"'
+end
+
+ls.add_snippets("cpp", {
+  s("logd", {
+    t 'LOG_DEBUG(', i(1, '&Poco::Logger::get("debug")'), t ', ', f(fn, { 2 }, {}), t ', ', i(2), t ');',
+  })
+})
+
+local bufferline = require('bufferline')
+bufferline.setup({
+  options = {
+    style_preset = bufferline.style_preset.default,
+    always_show_bufferline = true,
+    indicator = { style = "icon" },
+    hover = {
+      enabled = true,
+      delay = 200,
+      reveal = { 'close' }
+    },
+    groups = {
+      items = {
+        require('bufferline.groups').builtin.pinned:with({ icon = "📍" }) }
+    },
+    separator_style = "thick",
+    diagnostics = "nvim_lsp",
+    buffer_close_icon = '󰅖',
+    modified_icon = '●',
+    close_icon = '',
+    left_trunc_marker = '',
+    right_trunc_marker = '',
+  }
+})

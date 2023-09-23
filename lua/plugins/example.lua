@@ -1,4 +1,8 @@
 return {
+  {
+    "akinsho/bufferline.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 
   -- Color scheme
   { "marko-cerovac/material.nvim" },
@@ -77,6 +81,7 @@ return {
         lua_ls = { on_attach = require("format_diff").on_attach },
         marksman = { on_attach = require("format_diff").on_attach },
         pylsp = { on_attach = require("format_diff").on_attach },
+        rust_analyzer = { on_attach = require("format_diff").on_attach },
         sqlls = { on_attach = require("format_diff").on_attach },
         vimls = { on_attach = require("format_diff").on_attach },
         yamlls = { on_attach = require("format_diff").on_attach },
@@ -183,22 +188,22 @@ return {
   {
     "lewis6991/hover.nvim",
     config = function()
-      require("hover").setup {
+      require("hover").setup({
         init = function()
           require("hover.providers.lsp")
-          require('hover.providers.gh')
-          require('hover.providers.gh_user')
-          require('hover.providers.man')
+          require("hover.providers.gh")
+          require("hover.providers.gh_user")
+          require("hover.providers.man")
         end,
         preview_opts = {
-          border = nil
+          border = nil,
         },
         -- Whether the contents of a currently open hover window should be moved
         -- to a :h preview-window when pressing the hover keymap.
         preview_window = false,
-        title = true
-      }
-    end
+        title = true,
+      })
+    end,
   },
 
   -- Status line
@@ -267,15 +272,15 @@ return {
   { "karb94/neoscroll.nvim" },
   -- Github integration for TreeSitter
   {
-    'pwntester/octo.nvim',
+    "pwntester/octo.nvim",
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-tree/nvim-web-devicons",
     },
     opts = function()
-      require "octo".setup()
-    end
+      require("octo").setup()
+    end,
   },
 
   -- Better yank/put
@@ -289,6 +294,22 @@ return {
     config = function()
       -- calling `setup` is optional for customization
       -- require("fzf-lua").setup({})
-    end
+    end,
+  },
+  -- Multi-cursor
+  {
+    "mg979/vim-visual-multi",
+  },
+
+  -- To make rust libraries work (fmt)
+  {
+    "rust-lang/rust.vim",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end,
+  },
+
+  {
+    "tpope/vim-fugitive",
   },
 }

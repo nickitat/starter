@@ -28,3 +28,16 @@ map("n", "<c-n>", "<Plug>(YankyCycleForward)")
 map("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
 vim.keymap.set("n", "gh", require("hover").hover, { desc = "hover.nvim", remap = true })
+map({ "n", "x" }, "<Leader>rb", ":FzfLua buffers<cr>")
+map({ "n", "x" }, "<Leader>rc", ":FzfLua grep_cword<cr>")
+map({ "n", "x" }, "<Leader>rf", ":FzfLua git_files<cr>")
+map({ "n", "x" }, "<Leader>rh", ":FzfLua search_history<cr>")
+map({ "n", "x" }, "<Leader>rk", ":FzfLua keymaps<cr>")
+map({ "n", "x" }, "<Leader>rl", ":FzfLua lines<cr>")
+map({ "n", "x" }, "<Leader>rn", ":FzfLua live_grep_native<cr>")
+map({ "n", "x" }, "<Leader>rs", ":FzfLua lsp_live_workspace_symbols<cr>")
+map({ "n", "x" }, "<Leader>rr", ":FzfLua lsp_references<cr>")
+
+vim.keymap.set("i", "S-Tab", "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'")
+
+map({ "n", "x" }, "<Leader>bm", ":BufferLinePick<cr>")
