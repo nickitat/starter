@@ -2,7 +2,8 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
   -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+    lazypath })
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
@@ -53,7 +54,13 @@ vim.cmd("colorscheme material-palenight")
 -- Transparent statusline
 local lualine_material_theme = require("lualine.themes.material-stealth")
 lualine_material_theme.normal.c.bg = "None"
-require("lualine").setup({ options = { theme = lualine_material_theme } })
+require("lualine").setup({
+  options = {
+    theme = lualine_material_theme,
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
+  },
+})
 
 -- To suppress some random notification
 require("notify").setup({
@@ -89,10 +96,21 @@ require("transparent").setup({
   extra_groups = {
     "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
     "FloatBorder",
+    "FloatShadow",
+    "FloatShadowThrough",
+    --"Folded",
+    "NormalContrast",
     "NvimTreeNormal", -- NvimTree
+    "TreesitterContext",
+    "TreesitterContextLineNumber",
+    -- "NoiceMini",
+    -- "MsgArea",
+    --"Visual",
+    --"VisualNOS"
   },
   exclude_groups = {},
 })
+require("transparent").clear_prefix("lualine")
 require("neoscroll").setup({})
 
 require("yanky").setup({})
@@ -106,8 +124,10 @@ local f = ls.function_node
 local function fn(args, _, _)
   local function split(source, delimiters)
     local elements = {}
-    local pattern = '([^' .. delimiters .. ']+)'
-    _ = string.gsub(source, pattern, function(value) elements[#elements + 1] = value; end);
+    local pattern = "([^" .. delimiters .. "]+)"
+    _ = string.gsub(source, pattern, function(value)
+      elements[#elements + 1] = value
+    end)
     for key, elem in pairs(elements) do
       if string.sub(elem, -1, -1) == "," then
         elements[key] = string.sub(elem, 1, -2)
@@ -116,17 +136,23 @@ local function fn(args, _, _)
     return elements
   end
 
-  local arg = split(args[1][1], ' ')
-  return '"' .. table.concat(arg, '={}, ') .. '={}"'
+  local arg = split(args[1][1], " ")
+  return '"' .. table.concat(arg, "={}, ") .. '={}"'
 end
 
 ls.add_snippets("cpp", {
   s("logd", {
-    t 'LOG_DEBUG(', i(1, '&Poco::Logger::get("debug")'), t ', ', f(fn, { 2 }, {}), t ', ', i(2), t ');',
-  })
+    t("LOG_DEBUG("),
+    i(1, '&Poco::Logger::get("debug")'),
+    t(", "),
+    f(fn, { 2 }, {}),
+    t(", "),
+    i(2),
+    t(");"),
+  }),
 })
 
-local bufferline = require('bufferline')
+local bufferline = require("bufferline")
 bufferline.setup({
   options = {
     style_preset = bufferline.style_preset.default,
@@ -135,18 +161,84 @@ bufferline.setup({
     hover = {
       enabled = true,
       delay = 200,
-      reveal = { 'close' }
+      reveal = { "close" },
     },
     groups = {
       items = {
-        require('bufferline.groups').builtin.pinned:with({ icon = "📍" }) }
+        require("bufferline.groups").builtin.pinned:with({ icon = "📍" }),
+      },
     },
     separator_style = "thick",
     diagnostics = "nvim_lsp",
-    buffer_close_icon = '󰅖',
-    modified_icon = '●',
-    close_icon = '',
-    left_trunc_marker = '',
-    right_trunc_marker = '',
-  }
+    buffer_close_icon = "󰅖",
+    modified_icon = "●",
+    close_icon = "",
+    left_trunc_marker = "",
+    right_trunc_marker = "",
+  },
+})
+
+require("lspconfig").pylsp.setup({
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = { enabled = false },
+        mccabe = { enabled = false },
+      },
+      timeout = 5,
+    },
+  },
+})
+
+require("noice").setup({
+  -- lsp = {
+  --   -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+  --   override = {
+  --     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+  --     ["vim.lsp.util.stylize_markdown"] = true,
+  --     ["cmp.entry.get_documentation"] = true,
+  --   },
+  -- },
+  -- -- you can enable a preset for easier configuration
+  -- presets = {
+  --   bottom_search = true,         -- use a classic bottom cmdline for search
+  --   command_palette = true,       -- position the cmdline and popupmenu together
+  --   long_message_to_split = true, -- long messages will be sent to a split
+  --   inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+  --   lsp_doc_border = false,       -- add a border to hover docs and signature help
+  -- },
+  views = {
+    mini = {
+      win_options = {
+        winblend = 0,
+      },
+    },
+  },
+})
+
+require("symbols-outline").setup({
+  auto_close = true,
+  show_numbers = true,
+  keymaps = { goto_location = {} },
+})
+
+-- Somehow fixes wrong goto_location
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "Outline",
+  callback = function()
+    vim.keymap.set("n", "<CR>", function()
+      local outline = require("symbols-outline")
+      local node = outline._current_node()
+
+      vim.api.nvim_win_set_cursor(outline.state.code_win, { node.line + 1, node.character })
+
+      vim.schedule(function()
+        --vim.fn.win_gotoid(outline.state.code_win)
+
+        if require("symbols-outline.config").options.auto_close then
+          outline.close_outline()
+        end
+      end)
+    end, { buffer = true })
+  end,
 })

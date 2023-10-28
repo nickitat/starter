@@ -87,6 +87,7 @@ return {
         yamlls = { on_attach = require("format_diff").on_attach },
       },
       autoformat = false,
+      format = { timeout_ms = 5000 },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
       -- @type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
@@ -311,5 +312,22 @@ return {
 
   {
     "tpope/vim-fugitive",
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+    },
+  },
+
+  {
+    "stevearc/conform.nvim",
+    opts = {},
+    enabled = false,
   },
 }
