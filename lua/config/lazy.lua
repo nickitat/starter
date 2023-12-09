@@ -103,7 +103,9 @@ require("transparent").setup({
     "NvimTreeNormal", -- NvimTree
     "TreesitterContext",
     "TreesitterContextLineNumber",
-    -- "NoiceMini",
+    "NoiceMini",
+    "NoicePopupmenu",
+    "NoiceScrollbar",
     -- "MsgArea",
     --"Visual",
     --"VisualNOS"
@@ -152,6 +154,11 @@ ls.add_snippets("cpp", {
   }),
 })
 
+ls.add_snippets("cpp", {
+  s("cf", {
+    t("// clang-format off"),
+  }),
+})
 local bufferline = require("bufferline")
 bufferline.setup({
   options = {
@@ -207,6 +214,28 @@ require("noice").setup({
   --   inc_rename = false,           -- enables an input dialog for inc-rename.nvim
   --   lsp_doc_border = false,       -- add a border to hover docs and signature help
   -- },
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+    -- progress = { enabled = false, },
+    -- signature = { enabled = false, },
+    -- message = { enabled = false, },
+    -- documentation = { enabled = false, },
+    -- hover = { enabled = false, },
+    -- smart_move = { enabled = false, },
+  },
+  popupmenu = {
+    enabled = true,  -- enables the Noice popupmenu UI
+    ---@type 'nui'|'cmp'
+    backend = "nui", -- backend to use to show regular cmdline completions
+    ---@type NoicePopupmenuItemKind|false
+    -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
+    kind_icons = {}, -- set to `false` to disable icons
+  },
   views = {
     mini = {
       win_options = {
@@ -222,23 +251,43 @@ require("symbols-outline").setup({
   keymaps = { goto_location = {} },
 })
 
--- Somehow fixes wrong goto_location
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "Outline",
-  callback = function()
-    vim.keymap.set("n", "<CR>", function()
-      local outline = require("symbols-outline")
-      local node = outline._current_node()
+local actions = require("fzf-lua.actions")
+require("fzf-lua").setup({
+  grep = {
+    prompt         = 'Rg❯ ',
+    input_prompt   = 'Grep 4❯ ',
+    multiprocess   = true, -- run command in a separate process
+    git_icons      = true, -- show git icons?
+    file_icons     = true, -- show file icons?
+    color_icons    = true, -- colorize file|git icons
+    -- executed command priority is 'cmd' (if exists)
+    -- otherwise auto-detect prioritizes `rg` over `grep`
+    -- default options are controlled by 'rg|grep_opts'
+    -- cmd            = "rg --vimgrep",
+    grep_opts      = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp -e",
+    rg_opts        = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+    -- set to 'true' to always parse globs in both 'grep' and 'live_grep'
+    -- search strings will be split using the 'glob_separator' and translated
+    -- to '--iglob=' arguments, requires 'rg'
+    -- can still be used when 'false' by calling 'live_grep_glob' directly
+    rg_glob        = false,     -- default to glob parsing?
+    glob_flag      = "--iglob", -- for case sensitive globs use '--glob'
+    glob_separator = "%s%-%-",  -- query separator pattern (lua): ' --'
+    -- advanced usage: for custom argument parsing define
+    -- 'rg_glob_fn' to return a pair:
+    --   first returned argument is the new search query
+    --   second returned argument are addtional rg flags
+    -- rg_glob_fn = function(query, opts)
+    --   ...
+    --   return new_query, flags
+    -- end,
+    actions        = {
+      -- actions inherit from 'actions.files' and merge
+      -- this action toggles between 'grep' and 'live_grep'
+      ["ctrl-g"] = { actions.grep_lgrep }
+    },
+    no_header      = false, -- hide grep|cwd header?
+    no_header_i    = false, -- hide interactive header?
+  },
 
-      vim.api.nvim_win_set_cursor(outline.state.code_win, { node.line + 1, node.character })
-
-      vim.schedule(function()
-        --vim.fn.win_gotoid(outline.state.code_win)
-
-        if require("symbols-outline.config").options.auto_close then
-          outline.close_outline()
-        end
-      end)
-    end, { buffer = true })
-  end,
 })
