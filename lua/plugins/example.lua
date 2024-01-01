@@ -107,17 +107,6 @@ return {
   { "nvim-lua/plenary.nvim" },
   { "joechrisellis/lsp-format-modifications.nvim" },
 
-  -- Override nvim-cmp and add cmp-emoji
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local cmp = require("cmp")
-      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
-    end,
-  },
-
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -267,6 +256,20 @@ return {
           end
         end, { "i", "s" }),
       })
+      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
+      opts.sorting = {
+        priority_weight = 42,
+        comparators = {
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.recently_used,
+          require("clangd_extensions.cmp_scores"),
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
+        },
+      }
     end,
   },
   -- Smooth scroll
@@ -332,4 +335,6 @@ return {
     enabled = false,
   },
   { "ojroques/nvim-osc52" },
+  { "p00f/clangd_extensions.nvim" },
+  { "arkav/lualine-lsp-progress" },
 }
