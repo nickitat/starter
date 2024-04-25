@@ -76,6 +76,7 @@ return {
         cmake = { on_attach = require("format_diff").on_attach },
         docker_compose_language_service = { on_attach = require("format_diff").on_attach },
         dockerls = { on_attach = require("format_diff").on_attach },
+        gopls = { on_attach = require("format_diff").on_attach },
         html = { on_attach = require("format_diff").on_attach },
         jsonls = { on_attach = require("format_diff").on_attach },
         lua_ls = { on_attach = require("format_diff").on_attach },
@@ -218,6 +219,7 @@ return {
   -- then: setup supertab in cmp
   {
     "hrsh7th/nvim-cmp",
+    enabled = true,
     dependencies = {
       "hrsh7th/cmp-emoji",
     },
@@ -337,4 +339,22 @@ return {
   { "ojroques/nvim-osc52" },
   { "p00f/clangd_extensions.nvim" },
   { "arkav/lualine-lsp-progress" },
+  { "aznhe21/actions-preview.nvim" },
+  -- { "ms-jpq/coq_nvim" },
+  { "roobert/f-string-toggle.nvim" },
+  -- Markdown preview
+  { "ellisonleao/glow.nvim",       config = true,  cmd = "Glow" },
+  { "lcheylus/overlength.nvim",    enabled = false },
+  -- >= 0.10.0-dev
+  -- -- { "Bekaboo/dropbar.nvim" },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  },
 }

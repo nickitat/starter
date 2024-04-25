@@ -190,12 +190,12 @@ require("transparent").setup({
     "lualine_transitional_lualine_a_normal_to_lualine_b_normal",
     "lualine_transitional_lualine_a_insert_to_lualine_b_insert",
     "lualine_transitional_lualine_a_command_to_lualine_b_command",
-    --"MsgArea",
+    "MsgShow",
     --"Folded",
     --"Visual",
     --"VisualNOS"
   },
-  exclude_groups = {},
+  -- exclude_groups = { "OverLength" },
 })
 require("neoscroll").setup({})
 
@@ -307,7 +307,7 @@ require("noice").setup({
     },
     progress = { enabled = false, format = "", format_done = "", },
     -- signature = { enabled = false, },
-    -- message = { enabled = false, },
+    message = { enabled = false, },
     -- documentation = { enabled = false, },
     -- hover = { enabled = false, },
     -- smart_move = { enabled = false, },
@@ -326,6 +326,9 @@ require("noice").setup({
         winblend = 0,
       },
     },
+  },
+  messages = {
+    enabled = false, -- enables the Noice messages UI
   },
 })
 
@@ -457,4 +460,16 @@ require("clangd_extensions").setup({
     border = "none",
   },
 })
+require("f-string-toggle").setup({
+  key_binding = "<leader>fs",
+  key_binding_desc = "Toggle f-string"
+})
 
+require('glow').setup({
+  width = 240, -- maximum width of the Glow window compared to the nvim window size (overrides `width`)
+  height_ratio = 0.9,
+})
+
+require("chatgpt").setup({
+  api_key_cmd = ""
+})
