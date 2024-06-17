@@ -243,12 +243,35 @@ ls.add_snippets("cpp", {
     t("// clang-format off"),
   }),
 })
+--
+ls.add_snippets("cpp", {
+  s("logfl", {
+    t("LOG_DEBUG("),
+    i(1, '&Poco::Logger::get("debug")'),
+    t(", \"__PRETTY_FUNCTION__={}, __LINE__={}\", __PRETTY_FUNCTION__, __LINE__);"),
+  }),
+})
+--
+ls.add_snippets("cpp", {
+  s("scv", {
+    t("static_cast<const void*>("),
+    i(1, ''),
+    t(")"),
+  }),
+})
+--
+ls.add_snippets("cpp", {
+  s("mu", {
+    t("[[maybe_unused]]"),
+  })
+})
+--
 local bufferline = require("bufferline")
 bufferline.setup({
   options = {
     style_preset = bufferline.style_preset.default,
     always_show_bufferline = true,
-    indicator = { style = "icon" },
+    indicator = { style = "underline" },
     hover = {
       enabled = true,
       delay = 200,
@@ -259,7 +282,7 @@ bufferline.setup({
         require("bufferline.groups").builtin.pinned:with({ icon = "📍" }),
       },
     },
-    separator_style = "thick",
+    separator_style = "thin",
     diagnostics = "nvim_lsp",
     buffer_close_icon = "󰅖",
     modified_icon = "●",

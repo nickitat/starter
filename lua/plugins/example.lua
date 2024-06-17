@@ -57,6 +57,7 @@ return {
     -- },
     ---@class PluginLspOpts
     opts = {
+      inlay_hints = { enabled = true },
       --- @type lspconfig.options
       servers = {
         -- beautysh = {},
@@ -357,4 +358,13 @@ return {
       "nvim-telescope/telescope.nvim"
     }
   },
+  {
+    "wsdjeg/vim-fetch",
+  },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "VeryLazy",
+  --   opts = {},
+  --   config = function(_, opts) require 'lsp_signature'.setup(opts) end
+  -- }
 }

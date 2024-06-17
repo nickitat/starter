@@ -21,3 +21,4 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { buffer = true })
   end,
 })
+
