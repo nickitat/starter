@@ -270,6 +270,8 @@ local bufferline = require("bufferline")
 bufferline.setup({
   options = {
     style_preset = bufferline.style_preset.default,
+    -- themable = false,
+    -- enforce_regular_tabs = true,
     always_show_bufferline = true,
     indicator = { style = "underline" },
     hover = {
@@ -493,6 +495,6 @@ require('glow').setup({
   height_ratio = 0.9,
 })
 
-require("chatgpt").setup({
-  api_key_cmd = ""
-})
+-- require("chatgpt").setup({
+--   api_key_cmd = ""
+-- })

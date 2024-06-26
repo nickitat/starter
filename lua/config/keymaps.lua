@@ -57,3 +57,10 @@ vim.keymap.set('v', 'yc', require('osc52').copy_operator, { expr = true })
 -- vim.keymap.set("t", "j", "<Down>")
 -- vim.keymap.set("t", "k", "<Up>")
 vim.keymap.set({ "v", "n" }, "<Leader>cp", require("actions-preview").code_actions)
+--
+vim.keymap.set('i', '<C-a>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false
+})
+vim.g.copilot_no_tab_map = true
+

@@ -57,7 +57,7 @@ return {
     -- },
     ---@class PluginLspOpts
     opts = {
-      inlay_hints = { enabled = true },
+      inlay_hints = { enabled = false },
       --- @type lspconfig.options
       servers = {
         -- beautysh = {},
@@ -73,7 +73,13 @@ return {
         -- shfmt = {},
         awk_ls = { on_attach = require("format_diff").on_attach },
         bashls = { on_attach = require("format_diff").on_attach },
-        clangd = { on_attach = require("format_diff").on_attach },
+        clangd = {
+          on_attach = require("format_diff").on_attach,
+          cmd = {
+            "clangd",
+            "--offset-encoding=utf-16",
+          },
+        },
         cmake = { on_attach = require("format_diff").on_attach },
         docker_compose_language_service = { on_attach = require("format_diff").on_attach },
         dockerls = { on_attach = require("format_diff").on_attach },
@@ -89,7 +95,7 @@ return {
         yamlls = { on_attach = require("format_diff").on_attach },
       },
       autoformat = false,
-      format = { timeout_ms = 5000 },
+      format = { timeout_ms = nil },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
       -- @type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
@@ -367,4 +373,8 @@ return {
   --   opts = {},
   --   config = function(_, opts) require 'lsp_signature'.setup(opts) end
   -- }
+  {
+    "github/copilot.vim"
+  },
+  { "kevinhwang91/nvim-hlslens" },
 }
