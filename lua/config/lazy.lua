@@ -195,7 +195,7 @@ require("transparent").setup({
     --"Visual",
     --"VisualNOS"
   },
-  -- exclude_groups = { "OverLength" },
+  --exclude_groups = { "IblIndent", "hl-IblIndent", "BufferLineNumbers", "BufferLineNumbersVisible", "TreesitterContextLineNumber", },
 })
 require("neoscroll").setup({})
 
@@ -498,3 +498,7 @@ require('glow').setup({
 -- require("chatgpt").setup({
 --   api_key_cmd = ""
 -- })
+require('hlslens').setup({})
+--
+
+vim.cmd("highlight LineNr guifg=#5B6D58")
