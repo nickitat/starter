@@ -66,4 +66,9 @@ vim.keymap.set('i', '<C-a>', 'copilot#Accept("\\<CR>")', {
   replace_keycodes = false
 })
 vim.g.copilot_no_tab_map = true
-
+--
+map({ "t" }, "<esc>", "<c-\\><c-n>", { noremap = true })
+--
+vim.keymap.set("n", "<C-/>", function()
+  require("lazy.util").float_term(nil, { border = "rounded" })
+end, { desc = "Term with border" })

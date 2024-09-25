@@ -378,4 +378,5 @@ return {
     "github/copilot.vim"
   },
   { "kevinhwang91/nvim-hlslens" },
+  { "nvim-treesitter/nvim-treesitter-context" },
 }
