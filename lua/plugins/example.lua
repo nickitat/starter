@@ -42,6 +42,15 @@ return {
     },
   },
 
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = { "hrsh7th/cmp-emoji" },
+    ---@param opts cmp.ConfigSchema
+    opts = function(_, opts)
+      table.insert(opts.sources, { name = "emoji" })
+    end,
+  },
+
   -- LSP config
   {
     "neovim/nvim-lspconfig",
@@ -118,6 +127,13 @@ return {
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+      config = function()
+        require("telescope").load_extension("fzf")
+      end,
+    },
     keys = {
       -- add a keymap to browse plugin files
       -- stylua: ignore
@@ -137,19 +153,7 @@ return {
       },
     },
   },
-  -- Better fuzzy search score for Telescope
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        require("telescope").load_extension("fzf")
-      end,
-    },
-  },
 
-  -- Surrounding
   {
     "kylechui/nvim-surround",
     -- version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -161,7 +165,6 @@ return {
     end,
   },
 
-  -- TreeSitter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
@@ -379,4 +382,11 @@ return {
   },
   { "kevinhwang91/nvim-hlslens" },
   { "nvim-treesitter/nvim-treesitter-context" },
+
+  -- use mini.starter instead of alpha
+  { import = "lazyvim.plugins.extras.ui.mini-starter" },
+
+  -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
+  { import = "lazyvim.plugins.extras.lang.json" },
+
 }
