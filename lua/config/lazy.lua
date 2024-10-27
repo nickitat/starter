@@ -505,7 +505,6 @@ require('glow').setup({
 -- require("chatgpt").setup({
 --   api_key_cmd = ""
 -- })
---require('hlslens').setup({})
---
-
+require('hlslens').setup()
+---
 vim.cmd("highlight LineNr guifg=#426FCC")

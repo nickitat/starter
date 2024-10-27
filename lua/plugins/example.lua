@@ -207,16 +207,28 @@ return {
     end,
   },
 
-  -- Status line
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    opts = function()
-      return {
-        --[[add your custom lualine config here]]
-      }
-    end,
+    -- opts = function(_, opts)
+    --   table.insert(opts.sections.lualine_x, {
+    --     function()
+    --       return "😄"
+    --     end,
+    --   })
+    -- end,
   },
+
+  -- Status line
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   event = "VeryLazy",
+  --   opts = function()
+  --     return {
+  --       --[[add your custom lualine config here]]
+  --     }
+  --   end,
+  -- },
 
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
