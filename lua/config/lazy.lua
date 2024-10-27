@@ -508,4 +508,4 @@ require('glow').setup({
 --require('hlslens').setup({})
 --
 
-vim.cmd("highlight LineNr guifg=#5B6D58")
+vim.cmd("highlight LineNr guifg=#426FCC")

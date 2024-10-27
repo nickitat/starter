@@ -85,7 +85,7 @@ return {
         clangd = {
           on_attach = require("format_diff").on_attach,
           cmd = {
-            "clangd",
+            "/usr/bin/clangd-18",
             "--offset-encoding=utf-16",
           },
         },
@@ -384,7 +384,7 @@ return {
   { "nvim-treesitter/nvim-treesitter-context" },
 
   -- use mini.starter instead of alpha
-  { import = "lazyvim.plugins.extras.ui.mini-starter" },
+  --  { import = "lazyvim.plugins.extras.ui.mini-starter" },
 
   -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
   { import = "lazyvim.plugins.extras.lang.json" },
