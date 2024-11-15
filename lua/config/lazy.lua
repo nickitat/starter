@@ -88,9 +88,9 @@ require("lualine").setup({
 })
 
 -- To suppress some random notification
-require("notify").setup({
-  background_colour = "#000000",
-})
+-- require("notify").setup({
+--   background_colour = "#000000",
+-- })
 
 -- Transparent everything
 require("transparent").setup({
@@ -507,4 +507,4 @@ require('glow').setup({
 -- })
 require('hlslens').setup()
 ---
-vim.cmd("highlight LineNr guifg=#426FCC")
+vim.cmd("highlight LineNr guifg=#7d8aeb")
