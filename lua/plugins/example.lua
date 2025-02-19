@@ -66,7 +66,7 @@ return {
     -- },
     ---@class PluginLspOpts
     opts = {
-      inlay_hints = { enabled = false },
+      inlay_hints = { enabled = true },
       --- @type lspconfig.options
       servers = {
         -- beautysh = {},
@@ -102,6 +102,7 @@ return {
         sqlls = { on_attach = require("format_diff").on_attach },
         vimls = { on_attach = require("format_diff").on_attach },
         yamlls = { on_attach = require("format_diff").on_attach },
+        -- grammarly = {}
       },
       autoformat = false,
       format = { timeout_ms = nil },
@@ -401,4 +402,42 @@ return {
   -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
   { import = "lazyvim.plugins.extras.lang.json" },
 
+  --
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+    },
+  },
+  {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      dashboard = {
+        sections = {
+          { section = "header" },
+          { section = "keys",   gap = 1, padding = 1 },
+          { section = "startup" },
+          -- {
+          --   section = "terminal",
+          --   cmd = "pokeget random --hide-name; sleep .1",
+          --   random = 10,
+          --   pane = 2,
+          --   indent = 4,
+          --   height = 30,
+          -- },
+        },
+      },
+      notifier = { enabled = true },
+    }
+  }
 }

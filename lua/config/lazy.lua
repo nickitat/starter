@@ -5,7 +5,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
+      { out,                            "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
@@ -34,7 +34,7 @@ require("lazy").setup({
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update
-  }, -- automatically check for plugin updates
+  },                -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
@@ -204,9 +204,17 @@ require("transparent").setup({
   },
   --exclude_groups = { "IblIndent", "hl-IblIndent", "BufferLineNumbers", "BufferLineNumbersVisible", "TreesitterContextLineNumber", },
 })
-require("neoscroll").setup({})
+-- require("neoscroll").setup({
+-- respect_scrolloff = true,
+-- cursor_scrolls_alone = false,
+-- easing = 'linear',
+-- })
 
-require("yanky").setup({})
+require("yanky").setup({
+  system_clipboard = {
+    sync_with_ring = false,
+  },
+})
 -- Lua snippet for LOG_DEBUG
 local ls = require("luasnip")
 local s = ls.snippet
@@ -312,7 +320,9 @@ require("lspconfig").pylsp.setup({
     },
   },
 })
-
+---
+-- require("lspconfig").grammarly.setup({ settings = { filetypes = { "markdown", "cpp" } } })
+---
 require("noice").setup({
   -- lsp = {
   --   -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -384,7 +394,8 @@ require("fzf-lua").setup({
     -- default options are controlled by 'rg|grep_opts'
     -- cmd            = "rg --vimgrep",
     grep_opts      = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp -e",
-    rg_opts        = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+    rg_opts        =
+    "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g '!/build' -g '!.perf' -e",
     -- set to 'true' to always parse globs in both 'grep' and 'live_grep'
     -- search strings will be split using the 'glob_separator' and translated
     -- to '--iglob=' arguments, requires 'rg'
@@ -508,3 +519,24 @@ require('glow').setup({
 require('hlslens').setup()
 ---
 vim.cmd("highlight LineNr guifg=#7d8aeb")
+--
+require('osc52').setup {
+  max_length = 0, -- Maximum length of selection (0 for no limit)
+  silent = false, -- Disable message on successful copy
+  trim = true,    -- Trim surrounding whitespaces before copy
+  -- tmux_passthrough = true, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
+}
+
+-- vim.g.clipboard = {
+--   name = 'OSC 52',
+--   copy = {
+--     ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+--     ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+--   },
+--   paste = {
+--     ['+'] = function() end,
+--     ['*'] = function() end,
+--   },
+-- }
+--
+vim.api.nvim_set_hl(0, 'Comment', { italic = true, fg = '#676e95' })

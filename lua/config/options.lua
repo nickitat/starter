@@ -3,3 +3,10 @@
 vim.g.coq_settings = { auto_start = 'shut-up' }
 
 vim.opt.scrolloff = 10
+--vim.opt.clipboard = 'unnamedplus'
+
+vim.api.nvim_set_hl(0, 'Comment', { italic = true })
+
+if vim.fn.has("nvim-0.10") == 1 then
+  vim.opt.smoothscroll = true
+end

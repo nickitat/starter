@@ -42,7 +42,7 @@ map({ "n", "x" }, "<Leader>rn", ":FzfLua live_grep_native<cr>")
 map({ "n", "x" }, "<Leader>rs", ":FzfLua lsp_live_workspace_symbols<cr>")
 map({ "n", "x" }, "<Leader>rr", ":FzfLua lsp_references<cr>")
 map({ "n", "x" }, "<Leader>rx",
-  ":lua require 'fzf-lua'.live_grep_native({ cmd = 'rg --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g !/contrib/ -e' })<cr>")
+  ":lua require 'fzf-lua'.live_grep_native({ cmd = 'rg --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -g !/contrib/ -g !/build/ -g !*.perf -g !/minio_data/ -e' })<cr>")
 
 local ls = require("luasnip")
 vim.keymap.set({ "i" }, "<C-s>", function() ls.expand() end, { silent = true })
