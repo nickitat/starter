@@ -281,6 +281,12 @@ ls.add_snippets("cpp", {
   })
 })
 --
+ls.add_snippets("cpp", {
+  s("incl", {
+    t({ "#include <Poco/Logger.h>", "#include <Common/logger_useful.h>" }),
+  })
+})
+--
 local bufferline = require("bufferline")
 bufferline.setup({
   options = {
