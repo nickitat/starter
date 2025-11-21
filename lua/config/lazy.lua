@@ -546,3 +546,5 @@ require('osc52').setup {
 -- }
 --
 vim.api.nvim_set_hl(0, 'Comment', { italic = true, fg = '#676e95' })
+--
+require('fzf-lua').setup({ defaults = { git_icons = false } })
