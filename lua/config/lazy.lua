@@ -204,12 +204,21 @@ require("transparent").setup({
   },
   --exclude_groups = { "IblIndent", "hl-IblIndent", "BufferLineNumbers", "BufferLineNumbersVisible", "TreesitterContextLineNumber", },
 })
--- require("neoscroll").setup({
--- respect_scrolloff = true,
--- cursor_scrolls_alone = false,
--- easing = 'linear',
--- })
-
+--
+require("neoscroll").setup({
+  -- All these keys will be mapped to their corresponding default scrolling animation
+  mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>',
+    '<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
+  hide_cursor = true,          -- Hide cursor while scrolling
+  stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+  respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+  cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+  easing_function = 'linear',  -- Default easing function
+  pre_hook = nil,              -- Function to run before the scrolling animation starts
+  post_hook = nil,             -- Function to run after the scrolling animation ends
+  performance_mode = false,    -- Disable "Performance Mode" on all buffers.
+})
+--
 require("yanky").setup({
   system_clipboard = {
     sync_with_ring = false,
@@ -546,5 +555,13 @@ require('osc52').setup {
 -- }
 --
 vim.api.nvim_set_hl(0, 'Comment', { italic = true, fg = '#676e95' })
+--
+vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = '#ff6188' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#ffd866' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = '#78dce8' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = '#fc9867' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = '#a9dc76' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#ab9df2' })
+vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = '#78dce8' })
 --
 require('fzf-lua').setup({ defaults = { git_icons = false } })

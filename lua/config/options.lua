@@ -7,6 +7,4 @@ vim.opt.scrolloff = 10
 
 vim.api.nvim_set_hl(0, 'Comment', { italic = true })
 
-if vim.fn.has("nvim-0.10") == 1 then
-  vim.opt.smoothscroll = true
-end
+vim.opt.smoothscroll = true

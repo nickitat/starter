@@ -23,7 +23,7 @@ return {
 
   -- Language servers and code tools
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
@@ -85,7 +85,7 @@ return {
         clangd = {
           on_attach = require("format_diff").on_attach,
           cmd = {
-            "/usr/bin/clangd-18",
+            "/usr/bin/clangd-20",
             "--offset-encoding=utf-16",
           },
         },
@@ -352,7 +352,14 @@ return {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
     },
-    enabled = true,
+    config = function(_, opts)
+      require("noice").setup(opts)
+
+      -- Set cmdheight AFTER noice finishes setup
+      vim.schedule(function()
+        vim.o.cmdheight = 0
+      end)
+    end,
   },
 
   {
@@ -439,5 +446,30 @@ return {
       },
       notifier = { enabled = true },
     }
-  }
+  },
+  {
+    'HiPhish/rainbow-delimiters.nvim',
+    config = function()
+      require('rainbow-delimiters.setup').setup({
+        strategy = {
+          [''] = require('rainbow-delimiters').strategy['global'],
+        },
+        query = {
+          [''] = 'rainbow-delimiters',
+        },
+        highlight = {
+          'RainbowDelimiterRed',
+          'RainbowDelimiterYellow',
+          'RainbowDelimiterBlue',
+          'RainbowDelimiterOrange',
+          'RainbowDelimiterGreen',
+          'RainbowDelimiterViolet',
+          'RainbowDelimiterCyan',
+        },
+      })
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+  },
 }
