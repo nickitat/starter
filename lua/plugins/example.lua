@@ -85,7 +85,7 @@ return {
         clangd = {
           on_attach = require("format_diff").on_attach,
           cmd = {
-            "/usr/bin/clangd-20",
+            "/usr/bin/clangd-21",
             "--offset-encoding=utf-16",
           },
         },
@@ -299,7 +299,7 @@ return {
     end,
   },
   -- Smooth scroll
-  { "karb94/neoscroll.nvim" },
+  { "karb94/neoscroll.nvim", enabled = true },
   -- Github integration for TreeSitter
   {
     "pwntester/octo.nvim",
@@ -445,6 +445,9 @@ return {
         },
       },
       notifier = { enabled = true },
+      scroll = {
+        enabled = false, -- Disable smooth scrolling
+      },
     }
   },
   {
