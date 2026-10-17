@@ -85,8 +85,12 @@ return {
         clangd = {
           on_attach = require("format_diff").on_attach,
           cmd = {
-            "/usr/bin/clangd-21",
+            "clangd",
             "--offset-encoding=utf-16",
+            "--background-index",
+            "--background-index-priority=background",
+            "--pch-storage=memory",
+            "-j=8",
           },
         },
         cmake = { on_attach = require("format_diff").on_attach },
